@@ -73,11 +73,23 @@ export default function Contact() {
                         className="contact-form"
                         name="contact"
                         method="POST"
-                        data-netlify="true"
-                        action="/success"
-                        onSubmit={(e) => {
-                            if (!validate()) {
-                                e.preventDefault();
+                        action="/__forms.html"
+                        onSubmit={async (e) => {
+                            e.preventDefault();
+                            if (!validate()) return;
+
+                            const form = e.target as HTMLFormElement;
+                            const formData = new FormData(form);
+
+                            try {
+                                await fetch("/__forms.html", {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                                    body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+                                });
+                                window.location.href = "/success";
+                            } catch (error) {
+                                alert("전송 중 오류가 발생했습니다. 다시 시도해주세요.");
                             }
                         }}
                     >
