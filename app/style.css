@@ -579,9 +579,8 @@ p {
 
 .image-frame {
     position: relative;
-    border-radius: var(--radius-sm);
-
-    padding: 20px;
+    border-radius: var(--radius-md);
+    /* padding removed to let image fill the frame */
 }
 
 .image-frame::before {
@@ -589,11 +588,12 @@ p {
     position: absolute;
     top: 0;
     left: 0;
-    right: 20px;
-    bottom: 20px;
+    right: 0;
+    bottom: 0;
     border: 2px solid var(--color-secondary);
-    border-radius: var(--radius-lg);
-    z-index: -1;
+    border-radius: var(--radius-md);
+    z-index: 2;
+    pointer-events: none;
 }
 
 .placeholder-image {
